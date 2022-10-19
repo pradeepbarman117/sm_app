@@ -1,15 +1,14 @@
 
-from ast import Not
-import cProfile
-from email import message
-from getpass import getuser
-import imp
+# import cProfile
+# from getpass import getuser
+# import imp
 # import profile
+from ast import Not
+from email import message
 from pyexpat.errors import messages
 from tabnanny import check
 from django import views
 from django.http import HttpResponse
-from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -22,15 +21,6 @@ from .models import Post
 
 
 def signUp(request):
-
-    # if request.method == "POST":
-    #     username = request.POST.get("mobile")
-    #     fname = request.POST.get('fname')
-    #     lname = request.POST.get('lname')
-    #     email = request.POST.get("email")
-    #     mobile = request.POST.get("mobile")
-    #     password = request.POST.get("pass")
-    #     Cpassword = request.POST.get("cpass")
 
     if request.method == 'POST':
         fname = request.POST['fname']
