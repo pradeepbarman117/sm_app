@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+
+*{
+    margin:0;
+    padding:0;
+    font-family: "Poppins", sans-serif;
+    /* font-weight: 300; */
+    box-sizing: border-box;
+}
+
+body {
+    background: #eee;
+}
+
+.container {
+    width:95%;
+    margin:0 auto;
+}
+
+/**** css for navbar *****/
+
+.navBar{
+    background:#2C3A47;
+    padding:15px 0;
+}
+.navList ul{
+    list-style-type:none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navList ul li{
+    width:33.33%;
+    text-align: center;
+}
+.navList ul li a{
+    text-decoration: none;
+    font-size:22px;
+    color: #f7f1e3;
+}
+
+
+/**** css for profile *****/
+
+.d-grid{
+    display: flex;
+    margin:30px 0;
+}
+.profileWidth25{
+    width:25%;
+    margin:0 20px;
+}
+.postWidth50{
+    width:50%;
+    margin:0 20px;
+}
+.connectWidth25{
+    width:25%;
+    margin:0 20px;
+}
+.profile{
+    height: 260px;
+    width: 310px;
+    position: relative;
+    border-radius:10px;
+    box-shadow: 0px 0px 10px -5px;
+}
+
+.profileHeader{
+    background:url('../img/profileHeaderBG.jpg');
+    padding:40px 0;
+    border-radius: 10px 10px 0px 0px;
+}
+.profileHeader img{
+    position: absolute;
+    border-radius:50%;
+    width:100px;
+    top:24%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.profileBody{
+    margin: 70px 10px 20px 10px;
+    text-align: center;
+}
+.profileBottom{
+    text-align: center;
+}
+.profileBottom .d-flex{
+    display: flex;
+}
+.profileBottom .d-flex div{
+    width:50%;
+}
+.profileBottom .d-flex div span:nth-child(1){
+    font-weight: bold;
+}
+
+
+/**** css for post *****/
+
+.postProfile{
+    box-shadow:0px 0px 10px -5px;
+    border-radius:15px;
+    padding:20px !important;
+}
+.post_profile_width_50{
+    width:100% !important;
+}
+.postProfile .userInputs input{
+    margin:20px 0;
+    display: block;
+    width:100%;
+    padding:12px;
+    outline: none;
+    border:1px solid #2c3e50;
+}
+.postProfile .userInputs textarea{
+    margin:20px 0;
+    display: block;
+    width:100%;
+    padding:12px;
+    outline: none;
+    border:1px solid #2c3e50;
+}

@@ -1,0 +1,220 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Social Media App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'messPage/css/style.css' %}"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+</head>
+<body>
+    <div class="navBar">
+        <div class="container">
+            <div class="navList">
+                <ul style="align-items:center">
+                    <li style="width:33.33%">
+                        <a href="#">
+                            <span><i class="fas fa-home"></i></span>
+                        </a>
+                    </li>
+                    <li style="width:33.33%">
+                        <a><span><i class="fas fa-search"></i></span></a>
+                    </li>
+                    <li style="width:33.33%">
+                        {% if request.user.is_authenticated %}
+                            <a href="/logOut">
+                                <span>
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </span>
+                            </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-grid">
+        <div class="profileWidth25">
+            <div class="profile">
+                <div class="profileHeader">
+                    <img src={% static 'messPage/img/postProfile.png' %} />
+                </div>
+                <div class="profileBody">
+                    {% if request.user.is_authenticated %}
+                        <h2>{{request.user.get_full_name}}</h2>
+                        <span>@{{ request.user}}</span>
+                    {% endif %}
+                </div>
+                {% comment %} <div class="profileBottom">
+                    {% if request.user.is_authenticated %}
+                        <span>
+                            <a href={{ request.user }}
+                                style="
+                                    text-decoration:none;
+                                    background:#2c3e50;
+                                    color:white;
+                                    padding:10px 15px;
+                                ">
+                                View Profile
+                            </a>
+                        </span>
+                    {% endif %}
+                </div> {% endcomment %}
+            </div>
+        </div>
+
+        <div class="userPost postWidth50">
+            <div class="postProfile">
+                {% if request.user.is_authenticated %}
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="userInputs">
+                            <label>Heading</label>
+                            <input type="text" name="heading" placeholder="Enter your heading"/>
+                        </div>
+                        <div class="userInputs">
+                            <input type="file"  name="userImg" placeholder="Enter your heading"/>
+                        </div>
+                        <div class="userInputs">
+                            <textarea name="userMessage" rows="4" cols="50" ></textarea>
+                        </div>
+                        <div class="userInputs">
+                            <input type="submit" value="Post"/>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+
+           {% if request.user.is_authenticated%}
+                    {% for i in posts%}
+                        <div class="postProfile post_profile_width_50">
+                            <div class="postHeader" style="box-shadow:0px 0px 10px -5px;padding:10px;border-radius:0px 0px 14px 14px;">
+                                <div class="userNames" style="display:flex;align-items:center">
+                                    <div class="disProfile" 
+                                        style="width:13%"
+                                    >
+                                    <img  src={% static 'messPage/img/postProfile.png' %} width="50px" style="border-radius:50%" />
+                                    </div>
+                                    <div class="disNames" style="width:50%">
+                                        <h3 style="margin:5px 0">{{i.user.first_name}}</h3>
+                                        {% if request.user == i.user %}
+                                            <span><a href={{i.user}}>@{{i.user}}</a></span>
+                                        {% endif %}
+                                    </div> 
+                                    {% if request.user == i.user %}
+                                        <div style="width:37%;text-align:center">
+                                            <a href={{i.id}} style="
+                                                border: none;
+                                                background: red;
+                                                padding: 10px 20px;
+                                                border-radius: 50px;
+                                                text-decoration:none;
+                                                color: white;">
+                                                Delete
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="postBody" style="margin:20px;">
+                                <span><i class="fas fa-history"></i></span>
+                                <span>{{i.date}}</span>
+                                <h3 style="margin:20px 0">
+                                    {{i.heading}}
+                                </h3>
+                                <img src={{i.image.url}} style="width:50%;margin:0 auto;display:block">
+                                <p style="margin:10px 0;">
+                                    {{i.caption}}
+                                </p>
+                            </div>
+                            <div class="postBottom" style="box-shadow:0px 0px 10px -5px;padding:10px;border-radius:0px 0px 14px 14px;">
+                                <div style="display:flex;justify-content:center;text-align:center">
+                                    <div style="width:33.33%">
+                                        <span><i class="fas fa-heart"></i></span>
+                                        <span>Like</span>
+                                    </div>
+                                    <div style="width:33.33%">
+                                        <span><i class="fas fa-comments"></i></span>
+                                        <span>Comment</span>
+                                    </div>
+                                    <div style="width:33.33%">
+                                        <span><i class="fas fa-share"></i></span>
+                                        <span>Share</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                {% endfor %}
+           {% endif %}
+        </div>
+       
+        <div class="connectWidth25">
+            {% if request.user.is_authenticated%}
+                <div class="connetProfile">
+                    <div style="display:flex;justify-content:center;align-items:center;box-shadow:0px 0px 10px -5px;padding:15px;border-radius:10px;margin:10px 0">
+                        <a style="
+                            border:1px solid black;
+                            padding:8px 15px;
+                            text-decoration:none;    
+                        "
+                        >All Users</a>
+                    </div>
+                    <div class="connectUsers" style="display:flex;justify-content:center;align-items:center;box-shadow:0px 0px 10px -5px;padding:15px;border-radius:10px;">
+                        <div class="conntectedUserImg" style="width:20%">
+                            <img src="{% static 'messPage/img/postProfile.png'%}" width="50px" style="border-radius:50%;vertical-align:middle">
+                        </div>
+                        <div>
+                            <h3 style="margin:5px 0">Gaurav Kumar</h3>
+                            <span>@6263072464</span>
+                        </div>
+                    </div>
+                    <div class="connectUsers" style="display:flex;justify-content:center;align-items:center;box-shadow:0px 0px 10px -5px;padding:15px;border-radius:10px;margin:10px 0">
+                        <div class="conntectedUserImg" style="width:20%">
+                            <img src="{% static 'messPage/img/postProfile.png'%}" width="50px" style="border-radius:50%;vertical-align:middle">
+                        </div>
+                        <div>
+                            <h3 style="margin:5px 0">Firoj Banjare</h3>
+                            {% if request.user.is_authenticated%}
+                            <span>@9981360460</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="connectUsers" style="display:flex;justify-content:center;align-items:center;box-shadow:0px 0px 10px -5px;padding:15px;border-radius:10px;margin:10px 0">
+                        <div class="conntectedUserImg" style="width:20%">
+                            <img src="{% static 'messPage/img/postProfile.png'%}" width="50px" style="border-radius:50%;vertical-align:middle">
+                        </div>
+                        <div>
+                            <h3 style="margin:5px 0">Ayan Kumar</h3>
+                            <span>@6267569218</span>
+                        </div>
+                    </div>
+                    <div class="connectUsers" style="display:flex;justify-content:center;align-items:center;box-shadow:0px 0px 10px -5px;padding:15px;border-radius:10px;margin:10px 0">
+                        <div class="conntectedUserImg" style="width:20%">
+                            <img src="{% static 'messPage/img/postProfile.png'%}" width="50px" style="border-radius:50%;vertical-align:middle">
+                        </div>
+                        <div>
+                            <h3 style="margin:5px 0">Vishal Jolhe</h3>
+                            <span>@6266428119</span>
+                        </div>
+                    </div>
+                    <div class="connectUsers" style="display:flex;justify-content:center;align-items:center;box-shadow:0px 0px 10px -5px;padding:15px;border-radius:10px;margin:10px 0">
+                        <div class="conntectedUserImg" style="width:20%">
+                            <img src="{% static 'messPage/img/postProfile.png'%}" width="50px" style="border-radius:50%;vertical-align:middle">
+                        </div>
+                        <div>
+                            <h3 style="margin:5px 0">Ajay Sahu</h3>
+                            <span>@6267436273</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    
+
+</body>
+</html>
